@@ -20,7 +20,7 @@ do
     shift
     ;;
     --expected-branch=*)
-    export EXPECTED_BRANCH"${arg#*=}"
+    export EXPECTED_BRANCH="${arg#*=}"
     shift
     ;;
     --github)
@@ -38,7 +38,7 @@ do
   esac
 done
 
-EXPECTED_REPO=${EXPECTED_REPO:-"https://github.com/redhat-ai-services/ai-accelerator.git"}
+EXPECTED_REPO=${EXPECTED_REPO:-"https://github.com/aszmuda/ai-accelerator.git"}
 EXPECTED_BRANCH=${EXPECTED_BRANCH:-"main"}
 
 DEBUG=${DEBUG:-false}

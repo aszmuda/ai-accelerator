@@ -2,7 +2,7 @@
 function show_help {
   echo "Usage: $0 [OPTIONS]"
   echo "Options:"
-  echo "  --ocp_version=4.11    Target Openshift Version"
+  echo "  --ocp_version=4.18    Target Openshift Version"
   echo "  --BOOTSTRAP_DIR=<bootstrap_directory>    Base folder inside of bootstrap/overlays (Optional, pick during script execution if not set)"
   echo "  --timeout=45          Timeout in seconds for waiting for each resource to be ready"
   echo "  -f                    If set, will update the \`patch-application-repo-revision\` folder inside of your overlay with the current git information and push a checkin"
