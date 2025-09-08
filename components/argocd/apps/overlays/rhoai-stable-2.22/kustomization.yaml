@@ -20,4 +20,4 @@ patches:
   - path: patch-pipelines-list.yaml
     target:
       kind: ApplicationSet
-      name: cluster-configs
+      name: cluster-pipelines
