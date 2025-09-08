@@ -31,7 +31,7 @@ spec:
             value: git-clone
           - name: namespace
             value: openshift-pipelines
-      resolver: cluster
+        resolver: cluster
       params:
         - name: URL
           value: $(params.GIT_URL)
