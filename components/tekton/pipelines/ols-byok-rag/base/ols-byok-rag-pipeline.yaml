@@ -29,6 +29,7 @@ spec:
           value: $(params.GIT_URL)
         - name: REVISION
           value: $(params.GIT_REVISION)
+      resolver: cluster
       workspaces:
         - name: output
           workspace: workspace
@@ -44,6 +45,7 @@ spec:
           value: $(params.CONTEXT)
         - name: DOCKERFILE
           value: ./Containerfile
+      resolver: cluster
       runAfter:
         - git-clone
       workspaces:

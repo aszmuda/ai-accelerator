@@ -3,3 +3,5 @@ kind: Kustomization
 
 resources:
   - ols-byok-rag-pipeline.yaml
+  - git-clone-task.yaml
+  - buildah-task.yaml
