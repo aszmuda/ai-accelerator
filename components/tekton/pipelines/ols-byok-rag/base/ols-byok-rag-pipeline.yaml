@@ -1,0 +1,53 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: ols-byok-rag-pipeline
+  namespace: openshift-lightspeed
+spec:
+  params:
+    - name: GIT_URL
+      type: string
+      default: 'https://github.com/aszmuda/ols-byok-rag.git'
+    - name: GIT_REVISION
+      type: string
+      default: main
+    - name: BUILDER_IMAGE
+      type: string
+      default: 'registry.redhat.io:ubi9/buildah'
+    - name: IMAGE
+      type: string
+      default: 'image-registry.openshift-image-registry.svc:5000/openshift-lightspeed/ols-byok-rag'
+    - name: CONTEXT
+      type: string
+      default: .
+  tasks:
+    - name: git-clone
+      taskRef:
+        name: git-clone
+      params:
+        - name: URL
+          value: $(params.GIT_URL)
+        - name: REVISION
+          value: $(params.GIT_REVISION)
+      workspaces:
+        - name: output
+          workspace: workspace
+    - name: build-and-push
+      taskRef:
+        name: buildah
+      params:
+        - name: BUILDER_IMAGE
+          value: $(params.BUILDER_IMAGE)
+        - name: IMAGE
+          value: $(params.IMAGE)
+        - name: CONTEXT
+          value: $(params.CONTEXT)
+        - name: DOCKERFILE
+          value: ./Containerfile
+      runAfter:
+        - git-clone
+      workspaces:
+        - name: source
+          workspace: workspace
+  workspaces:
+    - name: workspace

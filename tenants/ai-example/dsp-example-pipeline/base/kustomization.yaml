@@ -5,7 +5,7 @@ namespace: ai-example-training
 
 resources:
   - dsp-example-imagestream.yaml
-  - dsp-example-pipeline.yaml
+  - podman-run-load-push.yaml
   - dsp-example-pipelinerun.yaml
   - dsp-example-rbac.yaml
   - execute-kfp-task.yaml
