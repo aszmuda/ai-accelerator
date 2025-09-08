@@ -24,6 +24,14 @@ spec:
     - name: git-clone
       taskRef:
         name: git-clone
+        params:
+          - name: kind
+            value: task
+          - name: name
+            value: git-clone
+          - name: namespace
+            value: openshift-pipelines
+      resolver: cluster
       params:
         - name: URL
           value: $(params.GIT_URL)
@@ -36,6 +44,14 @@ spec:
     - name: build-and-push
       taskRef:
         name: buildah
+        params:
+          - name: kind
+            value: task
+          - name: name
+            value: buildah
+          - name: namespace
+            value: openshift-pipelines
+        resolver: cluster
       params:
         - name: BUILDER_IMAGE
           value: $(params.BUILDER_IMAGE)
