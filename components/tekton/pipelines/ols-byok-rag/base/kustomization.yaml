@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - ols-byok-rag-pipeline.yaml
+  - ols-byok-rag-pipelinerun.yaml
