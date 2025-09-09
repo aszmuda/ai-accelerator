@@ -3,8 +3,6 @@ kind: PipelineRun
 metadata:
   name: ols-byok-rag-pipelinerun
   namespace: ols-byok-rag
-  annotations:
-    argocd.argoproj.io/sync-wave: "10"
 spec:
   pipelineRef:
     name: ols-byok-rag-pipeline
