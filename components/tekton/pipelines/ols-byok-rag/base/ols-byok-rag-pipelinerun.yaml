@@ -9,11 +9,11 @@ spec:
   pipelineRef:
     name: ols-byok-rag-pipeline
   taskRunTemplate:
-    serviceAccountName: pipeline
+    serviceAccountName: default
   timeouts:
     pipeline: 1h0m0s
   workspaces:
-  - name: source
+  - name: workspace
     volumeClaimTemplate:
       metadata:
         creationTimestamp: null
