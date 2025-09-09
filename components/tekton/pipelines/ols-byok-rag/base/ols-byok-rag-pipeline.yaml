@@ -16,7 +16,7 @@ spec:
       default: 'registry.redhat.io:ubi9/buildah'
     - name: IMAGE
       type: string
-      default: 'image-registry.openshift-image-registry.svc:5000/openshift-lightspeed/ols-byok-rag'
+      default: 'image-registry.openshift-image-registry.svc:5000/ols-byok-rag/ols-byok-rag'
     - name: CONTEXT
       type: string
       default: .
@@ -63,5 +63,8 @@ spec:
       workspaces:
         - name: source
           workspace: workspace
+        - name: dockerconfig
+          workspace: dockerconfig
   workspaces:
     - name: workspace
+    - name: dockerconfig
