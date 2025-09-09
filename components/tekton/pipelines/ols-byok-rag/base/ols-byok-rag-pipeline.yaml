@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: ols-byok-rag-pipeline
-  namespace: openshift-lightspeed
+  namespace: ols-byok-rag
 spec:
   params:
     - name: GIT_URL
