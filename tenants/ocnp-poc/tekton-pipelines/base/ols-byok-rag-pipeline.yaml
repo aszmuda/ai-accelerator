@@ -38,7 +38,7 @@ spec:
           value: $(params.GIT_REVISION)
       workspaces:
         - name: output
-          workspace: workspace
+          workspace: shared-workspace
     - name: build-and-push
       taskRef:
         params:
@@ -62,9 +62,9 @@ spec:
         - git-clone
       workspaces:
         - name: source
-          workspace: workspace
+          workspace: shared-workspace
         - name: dockerconfig
           workspace: dockerconfig
   workspaces:
-    - name: workspace
+    - name: shared-workspace
     - name: dockerconfig
