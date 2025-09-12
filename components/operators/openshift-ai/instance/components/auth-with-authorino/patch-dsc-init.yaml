@@ -1,7 +1,7 @@
 apiVersion: dscinitialization.opendatahub.io/v1
 kind: DSCInitialization
 metadata:
-  name: common-dsci
+  name: default-dsci
 spec:
   serviceMesh:
     auth:

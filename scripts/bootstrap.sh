@@ -39,7 +39,13 @@ install_gitops(){
     echo
     echo "Installing GitOps Operator."
 
-    apply_firmly ${GITOPS_OVERLAY}
+    apply_firmly ${GITOPS_OVERLAY} 
+
+    # oc wait docs:
+    # https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/developer-cli-commands.html#oc-wait
+    #
+    # kubectl wait docs:
+    # https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#wait
 
     echo -n "Retrieving the InstallPlan name: "
     INSTALL_PLAN_NAME=$(oc get sub openshift-gitops-operator -n ${OPERATOR_NS} -o jsonpath='{.status.installPlanRef.name}')

@@ -1,4 +1,4 @@
-apiVersion: tekton-pipelines.dev/v1
+apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   name: new-pipeline-6

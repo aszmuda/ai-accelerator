@@ -97,7 +97,7 @@ spec:
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
       securityContext: {}
-      schedulerName: common-scheduler
+      schedulerName: default-scheduler
   strategy:
     type: Recreate
   revisionHistoryLimit: 10

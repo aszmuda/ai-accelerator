@@ -8,4 +8,4 @@ namespace: openshift-nfd
 
 resources:
   - ../../../operator/overlays/stable
-  - ../../../instance/overlays/common
+  - ../../../instance/overlays/default

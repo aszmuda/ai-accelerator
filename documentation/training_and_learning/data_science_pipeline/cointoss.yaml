@@ -1,4 +1,4 @@
-apiVersion: tekton-pipelines.dev/v1beta1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   name: conditional-execution-pipeline
