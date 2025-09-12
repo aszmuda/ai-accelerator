@@ -12,7 +12,7 @@ components:
   - ../../components/components-training
   - ../../components/dashboard-feature-hardware-profiles
   - ../../components/dashboard-feature-model-catalog
-  - ../../components/default-notebook-pvc-size
+  - ../../components/common-notebook-pvc-size
   - ../../components/idle-notebook-culling
   - ../../components/notebook-pod-sizes
   - ../../components/make-kubeadmin-cluster-admin

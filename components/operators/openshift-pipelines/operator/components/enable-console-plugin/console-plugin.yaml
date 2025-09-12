@@ -3,7 +3,7 @@ kind: ConsolePlugin
 metadata:
   name: pipelines-console-plugin
   labels:
-    app.kubernetes.io/part-of: tekton-config
+    app.kubernetes.io/part-of: tekton-pipelines-config
 spec:
   backend:
     service:
