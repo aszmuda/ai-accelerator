@@ -19,6 +19,11 @@ spec:
       - cluster: local
         url: https://kubernetes.default.svc
         values:
+          name: openshift-gitops-operator
+          path: components/operators/openshift-gitops/aggregate/overlays/rhdp
+      - cluster: local
+        url: https://kubernetes.default.svc
+        values:
           name: openshift-pipelines-operator
           path: components/operators/openshift-pipelines/operator/overlays/latest
       - cluster: local
