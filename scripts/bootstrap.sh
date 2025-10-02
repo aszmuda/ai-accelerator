@@ -25,7 +25,6 @@ apply_firmly(){
     sleep 5
   done
   echo ""
-  # until_true oc apply -k "${1}" 2>/dev/null
 }
 
 install_gitops(){
@@ -39,15 +38,10 @@ install_gitops(){
     echo
     echo "Installing GitOps Operator."
 
-    apply_firmly ${GITOPS_OVERLAY} 
-
-    # oc wait docs:
-    # https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/developer-cli-commands.html#oc-wait
-    #
-    # kubectl wait docs:
-    # https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#wait
+    apply_firmly ${GITOPS_OVERLAY}
 
     echo -n "Retrieving the InstallPlan name: "
+    oc get sub openshift-gitops-operator -n ${OPERATOR_NS} -o jsonpath='{.status.installPlanRef.name}' 2>/dev/null
     INSTALL_PLAN_NAME=$(oc get sub openshift-gitops-operator -n ${OPERATOR_NS} -o jsonpath='{.status.installPlanRef.name}')
     echo "$INSTALL_PLAN_NAME was found in the namespace $OPERATOR_NS"
 
@@ -61,6 +55,20 @@ install_gitops(){
     echo ""
     echo "OpenShift GitOps successfully installed."
   fi
+}
+
+install_sops_age(){
+  echo
+  echo -n "Creating agekey file..."
+  age-keygen -o age.agekey 2> public.agekey
+  echo "Done"
+  echo "Waiting for ${ARGO_NS} namespace to be created..."
+  oc wait --for=jsonpath='{.status.phase}'=Active namespace/${ARGO_NS} --timeout=${TIMEOUT_SECONDS}s
+  echo -n "Creating secret from agekey in ${ARGO_NS} namespace: "
+  cat age.agekey | oc create secret generic sops-age -n ${ARGO_NS} --from-file=keys.txt=/dev/stdin
+  echo -n "Deleting agekey file..."
+  rm age.agekey
+  echo "Done"
 }
 
 
@@ -113,10 +121,12 @@ bootstrap_cluster(){
 # Verify CLI tooling
 check_bin oc
 check_bin kustomize
+check_bin age
 
 # Verify OCP login
 check_oc_login
 
 # Execute bootstrap functions
 install_gitops
+install_sops_age
 bootstrap_cluster

@@ -1,17 +1,15 @@
-# Red Hat AI Accelerator
+# AI Accelerator
 
-Welcome to the AI Accelerator project source code. This project is designed to initialize an OpenShift cluster with a recommended set of operators and components that aid with training, deploying, serving and monitoring Machine Learning models.
+This project is designed to initialize an OpenShift cluster with a recommended set of operators and components that aid with deploying Red Hat OpenShift AI along with its dependencies.
+This project is a customized version of the [Red Hat AI Accelerator](https://github.com/redhat-ai-services/ai-accelerator) project.
 
-This repo is intended to provide a core set of OpenShift features that would commonly be used for a Data Science environment, but can also be highly customized for specific scenarios. When starting out we recommend making a copy or a fork of this project on your Git based instance, since it utilizes the process of automating IT infrastructure using infrastructure as code and software development best practices such as Git, code review, and CI/CD - known as GitOps.
-
-Once the initial components are deployed, several ArgoCD Application objects are created which are then used to install and manage the install of the operators on the cluster.
+Once the initial components are bootstrapped, several ArgoCD Application objects are created which are then used to install and manage the installation of the operators on the cluster.
 
 ![AI Accelerator Overview](documentation/diagrams/AI_Accelerator.drawio.png)
 
 ## Additional Documentation and Info
 
-* [Overview](documentation/overview.md) - what's inside this repository?
-* [Installation Guide](documentation/installation.md) - containing step by step instructions for executing this installation sequence on your cluster
+* [Installation Guide—](documentation/installation.md)containing step-by-step instructions for executing this installation sequence on your cluster
 
 ### Operators
 
@@ -32,7 +30,3 @@ Once the initial components are deployed, several ArgoCD Application objects are
 
 * [Bootstrap Overlays](bootstrap/overlays/)
 * [Cluster Configuration Sets](clusters/overlays/)
-
-### Tenants
-
-* [Tenant Examples](tenants/)

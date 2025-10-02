@@ -12,27 +12,19 @@ This document contains the steps for installing and configuring Red Hat OpenShif
 
 - Functional storage provisioner available with a default StorageClass.
 
-> [!Note]  
-> If using GPUs (not required): This repo is designed and tested to work with AWS for provisioning additional GPU nodes. 
-> 
-> Can still act as an example to deploy GPU resources in any cloud environment or a self-hosted cluster with some minor modifications.
-
-> [!Tip]  
-> Red Hat employees can request a demo cluster using [demo.redhat.com](https://demo.redhat.com) to provision OpenShift AI. For more information see the [Red Hat Demo Environment](redhat_demo_environment.md) documentation.
-
 ### Client Tooling
 
 The following are required for the bootstrap scripts. If unavailable the scripts will attempt to download required tools and store them at `.\tmp`:
 
-- [oc](https://docs.redhat.com/en/documentation/openshift_container_platform/latest/html-single/cli_tools/index#cli-getting-started) - OpenShift command-line interface (CLI).
+- [oc](https://docs.redhat.com/en/documentation/openshift_container_platform/latest/html-single/cli_tools/index#cli-getting-started) — OpenShift command-line interface (CLI).
 
-- [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/) - Kubernetes native configuration and transformation tool.
+- [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/) — Kubernetes native configuration and transformation tool.
 
-- [kubeseal](https://github.com/bitnami-labs/sealed-secrets#overview) - Encryption tool used for creating the SealedSecret resource.
+- [age](https://github.com/FiloSottile/age/releases) — Encryption tool used for creating public/private key pairs for SOPS encryption.
 
-- [openshift-install](https://github.com/openshift/installer/releases) (optional) - Tool used for monitoring the [cluster installation progress](https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html-single/installing_on_any_platform/index#installation-installing-bare-metal_installing-platform-agnostic).
+- [sops](https://github.com/getsops/sops/releases) — Tool for encrypting sensitive data so it can be stored in Git.
 
-- [yq](https://github.com/mikefarah/yq?tab=readme-ov-file#install) - a lightweight and portable command-line YAML, JSON and XML processor. Used by installation scripts when working with configuration files. WARNING!! The yq python implementation does not work. Ensure to use the implementation from this mentioned GitHub repository.
+- [yq](https://github.com/mikefarah/yq?tab=readme-ov-file#install) — Command-line YAML, JSON and XML processor. Used by installation scripts when working with configuration files.
 
 ### Access to an OpenShift Cluster
 
@@ -40,7 +32,13 @@ Login to the cluster using `oc login...` using an account with appropriate permi
 
 ## Bootstrapping a Cluster
 
-Clone this git repository to a directory location on your local workstation, or to a [Bastion server](https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html-single/networking/index#accessing-hosts) hosted within the OpenShift cluster subnet.
+Clone this git repository to a directory location on your local workstation.
+
+### Generate a Public/Private Key Pair using Age
+
+```shell
+age-keygen -o age.agekey
+```
 
 ### Run the Cluster Bootstrap
 
@@ -66,13 +64,6 @@ Once the script completes, verify that you can access the ArgoCD UI using the UR
 
 This URL should present an ArgoCD login page, showing that it was successfully deployed.
 
-TODO: Add in details for the ArgoCD application menu tile within the OCP web console.
-
-Alternatively you can also obtain the ArgoCD login URL from the ArgoCD route:
-
-```sh
-oc get routes openshift-gitops-server -n openshift-gitops
-```
 
 Use the OpenShift Login option and sign in with your OpenShift credentials.
 
@@ -80,17 +71,17 @@ The cluster may take 10-15 minutes to finish installing and updating.
 
 ## Updating the ArgoCD Groups
 
-Argo creates the following group in OpenShift to grant access and control inside of ArgoCD:
+Argo creates the following group in OpenShift to grant access and control inside ArgoCD:
 
 - gitops-admins
 
-To add a user to the admin group run:
+To add a user to the admin group, run:
 
 ```sh
 oc adm groups add-users gitops-admins $(oc whoami)
 ```
 
-To add a user to the user group run:
+To add a user to the user group, run:
 
 ```sh
 oc adm groups add-users argocdusers $(oc whoami)
