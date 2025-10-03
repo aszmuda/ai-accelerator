@@ -75,6 +75,7 @@ spec:
       g, system:cluster-admins, role:admin
       g, cluster-admins, role:admin
     scopes: '[groups]'
+  kustomizeBuildOptions: --enable-alpha-plugins --enable-exec
   repo:
     resources:
       limits:
@@ -93,7 +94,7 @@ spec:
         - echo "Installing KSOPS..."; mv ksops /custom-tools/; mv kustomize /custom-tools/;
           echo "Done.";
       command: ["/bin/sh", "-c"]
-      image: quay.io/viaductoss/ksops:v4
+      image: quay.io/viaductoss/ksops:v4.3.3
       name: install-ksops
       volumeMounts:
         - mountPath: /custom-tools
