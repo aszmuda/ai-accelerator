@@ -14,7 +14,7 @@ Where:
   -sl | --schema-location      Location containing schemas"
 }
 
-which kustomize && KUSTOMIZE_CMD="kustomize build"
+which kustomize && KUSTOMIZE_CMD="kustomize build --enable-alpha-plugins --enable-exec"
 
 KUSTOMIZE_CMD="${KUSTOMIZE_CMD:-oc kustomize}"
 IGNORE_MISSING_SCHEMAS="--ignore-missing-schemas"

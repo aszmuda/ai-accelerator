@@ -24,6 +24,8 @@ The following are required for the bootstrap scripts. If unavailable the scripts
 
 - [sops](https://github.com/getsops/sops/releases) — Tool for encrypting sensitive data so it can be stored in Git.
 
+- [ksops](https://github.com/viaduct-ai/kustomize-sops/releases) — A Flexible Kustomize Plugin for SOPS Encrypted Resources.
+
 - [yq](https://github.com/mikefarah/yq?tab=readme-ov-file#install) — Command-line YAML, JSON and XML processor. Used by installation scripts when working with configuration files.
 
 ### Access to an OpenShift Cluster
@@ -51,7 +53,7 @@ Clone this git repository to a directory location on your local workstation.
     ```
 4. To decrypt secrets, you will need to use the private key from the same `age.agekey` file which was used to encrypt the secret.
     ```shell
-    export SOPS_AGE_KEY_FILE=<path to age.agekey>
+    export SOPS_AGE_KEY_FILE=<absolute path to the age.agekey>
     sops --decrypt --in-place <file path to secret>
     ```
 

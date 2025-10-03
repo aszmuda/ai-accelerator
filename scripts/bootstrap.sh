@@ -94,7 +94,7 @@ bootstrap_cluster(){
   check_repo
   
   echo "Apply overlay to override default instance"
-  kustomize build "${base_dir}/${bootstrap_dir}" | oc apply -f -
+  kustomize build --enable-alpha-plugins --enable-exec "${base_dir}/${bootstrap_dir}" | oc apply -f -
 
   wait_for_openshift_gitops
 
@@ -120,6 +120,6 @@ check_bin age
 check_oc_login
 
 # Execute bootstrap functions
-install_gitops
-create_sops_age_secret
+#install_gitops
+#create_sops_age_secret
 bootstrap_cluster
