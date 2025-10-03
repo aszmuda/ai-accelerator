@@ -34,11 +34,30 @@ Login to the cluster using `oc login...` using an account with appropriate permi
 
 Clone this git repository to a directory location on your local workstation.
 
-### Generate a Public/Private Key Pair using Age
+### Encrypt/Decrypt secrets with SOPS
+1. Generate a key pair using the `age-keygen` tool.
+    ```shell
+    age-keygen -o age.agekey 2> /dev/null
+    ```
+2. Update `.sops.yaml` with the public key from the previous step `age.agekey` file.
+    ```yaml
+    creation_rules:
+    - unencrypted_regex: "^(apiVersion|metadata|kind|type|url)$"
+      age: "<replace with age public key>"
+    ```
+3. To encrypt secrets use the following `sops` command:
+    ```shell
+    sops --encrypt --in-place <file path to secret>
+    ```
+4. To decrypt secrets, you will need to use the private key from the same `age.agekey` file which was used to encrypt the secret.
+    ```shell
+    export SOPS_AGE_KEY_FILE=<path to age.agekey>
+    sops --decrypt --in-place <file path to secret>
+    ```
 
-```shell
-age-keygen -o age.agekey
-```
+> [! WARNING]
+> Make sure that the `age.agekey` file is not committed to the repository but shared using a secure method.
+
 
 ### Run the Cluster Bootstrap
 

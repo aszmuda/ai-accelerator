@@ -57,18 +57,11 @@ install_gitops(){
   fi
 }
 
-install_sops_age(){
-  echo
-  echo -n "Creating agekey file..."
-  age-keygen -o age.agekey 2> public.agekey
-  echo "Done"
+create_sops_age_secret(){
   echo "Waiting for ${ARGO_NS} namespace to be created..."
   oc wait --for=jsonpath='{.status.phase}'=Active namespace/${ARGO_NS} --timeout=${TIMEOUT_SECONDS}s
   echo -n "Creating secret from agekey in ${ARGO_NS} namespace: "
   cat age.agekey | oc create secret generic sops-age -n ${ARGO_NS} --from-file=keys.txt=/dev/stdin
-  echo -n "Deleting agekey file..."
-  rm age.agekey
-  echo "Done"
 }
 
 
@@ -128,5 +121,5 @@ check_oc_login
 
 # Execute bootstrap functions
 install_gitops
-install_sops_age
+create_sops_age_secret
 bootstrap_cluster
