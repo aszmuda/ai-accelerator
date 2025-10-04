@@ -113,6 +113,7 @@ spec:
       name: custom-tools
     - name: sops-age
       secret:
+        secretName: sops-age
   resourceExclusions: |
     - apiGroups:
       - tekton.dev
